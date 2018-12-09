@@ -1,0 +1,70 @@
+<html>
+<head>
+</head>
+<body>
+
+<script>
+
+var darab=0
+
+function kiir(){
+	
+	let array_zi=[];
+	let array_zo=[];
+	
+	//array feltöltése
+	while (array_zi.length<((darab)/2)){
+		random=Math.floor(Math.random()*darab)+1;
+		if (array_zi.indexOf(random)==-1){
+			array_zi.push(random);
+		}
+	}
+	
+	//textboxok feltöltése
+	for (let i=1; i<darab+1; i++){
+		if (array_zi.indexOf(i)==-1){
+			document.getElementById(i).value="User1";
+		} else {
+			document.getElementById(i).value="User2";
+		}
+	}
+}
+
+function hozzaad(){
+	var para = document.createElement("p");
+	para.setAttribute("id","p-"+(darab+1));
+	var input = document.createElement("input");
+	input.setAttribute("id",darab+1)
+	var input_szoveg= prompt("Milyen házimunkát szeretnél hozzáadni? ");
+		while (input_szoveg==""){
+			alert("Kérlek adj meg egy elnevezést!");
+			input_szoveg= prompt("Milyen házimunkát szeretnél hozzáadni? ");
+		}
+	var node = document.createTextNode(input_szoveg);
+	para.appendChild(node);
+	document.getElementById("data").appendChild(para); 
+	document.getElementById("data").appendChild(input);
+	darab=darab+1;
+}
+
+function torol(){
+	var element=document.getElementById("data");
+	var para=document.getElementById("p-"+(darab));
+	var input=document.getElementById(darab);
+	element.removeChild(para);
+	element.removeChild(input);
+	darab=darab-1;
+}
+
+</script>
+
+<h1>Munkakiosztó</h1>
+
+<p id="data"></p>
+
+<input type="submit" value="Uj munka" onclick="hozzaad()">
+<input type="submit" value="Utolso sor torlese" onclick="torol()"><br>
+<input type="submit" value="Kioszt" onclick="kiir()">
+
+</body>
+</html>
